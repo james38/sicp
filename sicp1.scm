@@ -63,7 +63,7 @@ and returns the sum of the squares of the two larger numbers.
 (sum-of-larger-squares 6 5 5)
 (sum-of-larger-squares 5 5 5)
 
-|#
+#|
 Exercise 1.5
 With applicative-order evaluation, which is what the 
   interpreter actually uses - "evaluate the arguments
@@ -80,7 +80,36 @@ With normal-order evaluation, the interpreter performs
   will attempt to resolve the definition of p so that
   test can be evaluated, but it will be stuck in an 
   infinite loop.
-#|
+|#
 
 ; 1.1.7 - Example: Square Roots by Newton's Method
 
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (is-sufficient guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (sqrt-iter guess x)
+  (if (is-sufficient guess x)
+      guess
+      (sqrt-iter (improve guess x)
+		 x)))
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+
+(sqrt 9)
+
+; Exercise 1.6
+
+#|
+When Alyssa uses the new-if to compute square roots, 
+since it doesn't use a special form, then the alternative
+will be evaluated, even if the predicate is true.
+Need to check this answer - may not be true.
+|#
+
+; 1.1.8 - Procedures as Black-Box Abstractions
